@@ -14,6 +14,10 @@
 		<string>apps</string>
 		<key>pkginfo</key>
 		<dict>
+			<key>blocking_applications</key>
+			<array>
+				<string>OmniDiskSweeper</string>
+			</array>
 			<key>catalogs</key>
 			<array>
 				<string>testing</string>
@@ -30,16 +34,21 @@
 			<string>%NAME%</string>
 			<key>unattended_install</key>
 			<true/>
-			<key>blocking_applications</key>
-            <array>
-                <string>OmniDiskSweeper</string>
-            </array>
 		</dict>
 	</dict>
 	<key>ParentRecipe</key>
 	<string>com.github.jpiel.pkg.OmniDiskSweeper</string>
 	<key>Process</key>
 	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>warning_message</key>
+				<string>This recipe has been deprecated; please consider switching to com.github.luisgiraldo.munki.omnidisksweeper instead.</string>
+			</dict>
+			<key>Processor</key>
+			<string>DeprecationWarning</string>
+		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>

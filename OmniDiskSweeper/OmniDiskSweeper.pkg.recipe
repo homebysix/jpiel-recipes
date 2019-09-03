@@ -8,109 +8,117 @@
 	<string>com.github.jpiel.pkg.OmniDiskSweeper</string>
 	<key>Input</key>
 	<dict>
-	    <key>appname</key>
-	    <string>OmniDiskSweeper.app</string>
 		<key>INSTALL_DIR</key>
 		<string>Applications</string>
+		<key>appname</key>
+		<string>OmniDiskSweeper.app</string>
 	</dict>
 	<key>ParentRecipe</key>
 	<string>com.github.jpiel.download.OmniDiskSweeper</string>
 	<key>Process</key>
 	<array>
 		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>warning_message</key>
+				<string>This recipe has been deprecated; please consider switching to com.github.luisgiraldo.pkg.omnidisksweeper instead.</string>
+			</dict>
 			<key>Processor</key>
-			<string>AppDmgVersioner</string>
+			<string>DeprecationWarning</string>
+		</dict>
+		<dict>
 			<key>Arguments</key>
 			<dict>
 				<key>dmg_path</key>
 				<string>%pathname%</string>
 			</dict>
+			<key>Processor</key>
+			<string>AppDmgVersioner</string>
 		</dict>
 		<dict>
-			<key>Processor</key>
-			<string>PkgRootCreator</string>
 			<key>Arguments</key>
 			<dict>
-				<key>pkgroot</key>
-				<string>%RECIPE_CACHE_DIR%/pkgroot</string>
 				<key>pkgdirs</key>
 				<dict>
 					<key>Applications</key>
 					<string>0775</string>
 				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/pkgroot</string>
 			</dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
 		</dict>
 		<dict>
-			<key>Processor</key>
-			<string>Copier</string>
 			<key>Arguments</key>
 			<dict>
-				<key>source_path</key>
-				<string>%pathname%/%appname%</string>
 				<key>destination_path</key>
 				<string>%pkgroot%/%INSTALL_DIR%/%appname%</string>
+				<key>source_path</key>
+				<string>%pathname%/%appname%</string>
 			</dict>
+			<key>Processor</key>
+			<string>Copier</string>
 		</dict>
 		<dict>
-		    <key>Processor</key>
-		    <string>FileCreator</string>
-		    <key>Arguments</key>
-		    <dict>
-				<key>file_path</key>
-				<string>%RECIPE_CACHE_DIR%/PackageInfoTemplate</string>
+			<key>Arguments</key>
+			<dict>
 				<key>file_content</key>
 				<string>&lt;?xml version="1.0" encoding="utf-8" standalone="no"?&gt;
 &lt;pkg-info overwrite-permissions="false" followSymLinks="true"/&gt;
 </string>
-		    </dict>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/PackageInfoTemplate</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
 		</dict>
 		<dict>
-		    <key>Processor</key>
-		    <string>PkgInfoCreator</string>
-		    <key>Arguments</key>
-		    <dict>
+			<key>Arguments</key>
+			<dict>
 				<key>infofile</key>
 				<string>%RECIPE_CACHE_DIR%/PackageInfo</string>
 				<key>pkgtype</key>
 				<string>flat</string>
-				<key>version</key>
-				<string>%version%</string>
 				<key>template_path</key>
 				<string>%RECIPE_CACHE_DIR%/PackageInfoTemplate</string>
-		    </dict>
+				<key>version</key>
+				<string>%version%</string>
+			</dict>
+			<key>Processor</key>
+			<string>PkgInfoCreator</string>
 		</dict>
 		<dict>
-			<key>Processor</key>
-			<string>PkgCreator</string>
 			<key>Arguments</key>
 			<dict>
 				<key>pkg_request</key>
 				<dict>
-					<key>pkgname</key>
-					<string>%NAME%-%version%</string>
-					<key>version</key>
-					<string>%version%</string>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>group</key>
+							<string>admin</string>
+							<key>mode</key>
+							<string>0775</string>
+							<key>path</key>
+							<string>/</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+					</array>
 					<key>id</key>
 					<string>%bundleid%</string>
 					<key>options</key>
 					<string>purge_ds_store</string>
-					<key>chown</key>
-					<array>
-					<dict>
-						<key>path</key>
-						<string>/</string>
-						<key>user</key>
-						<string>root</string>
-						<key>group</key>
-						<string>admin</string>
-						<key>mode</key>
-						<string>0775</string>
-					</dict>
-					</array>
+					<key>pkgname</key>
+					<string>%NAME%-%version%</string>
+					<key>version</key>
+					<string>%version%</string>
 				</dict>
 			</dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
 		</dict>
 	</array>
 </dict>
 </plist>
-
